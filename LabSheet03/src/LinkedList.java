@@ -66,7 +66,7 @@ public class LinkedList {
 			Node current_node = head;
 			int current_position = 0;
 			while (current_node != null && current_position < position - 1) {
-				current_node = current_node.next.next;
+				current_node = current_node.next;
 				current_position++;
 			}
 			current_node.next = current_node.next.next;
@@ -87,6 +87,45 @@ public class LinkedList {
 				current_node.next = null;
 			}
 		}
+	}
+
+	public int length() {
+		Node Allnode = head;
+		int length = 0;
+
+		while(Allnode != null){
+			length++;
+			Allnode = Allnode.next;
+		}
+
+		return length;
+	}
+
+	public Object get(int position){
+		Node current_node = head;
+		int current_position = 0;
+
+		while (current_node != null && current_position < position){
+			current_position++;
+			current_node = current_node.next;
+		}
+
+		return current_node.data;
+	}
+
+	public void set(int position, Object value){
+		Node current_node = head;
+		int current_position = 0;
+
+		while (current_node != null && current_position < position){
+			current_position++;
+			current_node = current_node.next;
+		}
+		current_node.data = value;
+	}
+
+	public void clear(){
+		head = null;
 	}
 	
 	
