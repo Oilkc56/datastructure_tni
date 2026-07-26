@@ -42,6 +42,7 @@ public class DoublyLinkedList {
 	}
 	
 	// Method for inserting at the beginning and specific position
+	// ex1
 	public void insert(int position, Object value) {
 		Node new_node = new Node(value);
 		
@@ -62,8 +63,9 @@ public class DoublyLinkedList {
 			
 			new_node.next = current_node.next;
 			new_node.previous = current_node;
-			current_node.next = new_node;
 			current_node.next.previous = new_node;
+			current_node.next = new_node;
+
 			
 			
 		}
@@ -79,30 +81,57 @@ public class DoublyLinkedList {
 				tail = null;
 			} else {
 				// write statement for deleting the last node
-				
+				Node current_node = tail;
+				current_node.previous.next = null;
+				tail = current_node.previous;
+				current_node.next = null;
 			}
 		}
 	}
 	
 	// Method for deleting at the beginning and specific position
 	public void remove(int position) {
+
+
+
 		if (head != null) {  // check if the list is NOT empty list
 			if (head.next == null) {  // check if the list has only 1 node -> make the list to empty list
 				head = null;
 				tail = null;
 			} else if (position == 0) {
 				// write statement for deleting the beginning
-				
+				head = head.next;
+				head.previous = null;
 			} else {
 				// write statement for deleting the specific position
-				
+				Node current_node = head;
+				int current_position = 0;
+				while (current_node != null & current_position < position){
+
+					current_node = current_node.next;
+					current_position++;
+				}
+
+
+				current_node.next.previous = current_node.previous; //3
+				current_node.previous.next = current_node.next;
+
 			}
 		}
 	}
 
 	// Method for a backward traversal (from the last node to the first node)
-	public String backwardTraversal() {
-		return null;
+	public String backwardTraversal() { //5
+		Node current_node = tail;
+		String result = "[";
+		boolean first = true;
+		while (current_node != null) {
+			result += (!first ? ", " : "") + current_node.data;
+			current_node = current_node.previous;
+			first = false;
+		}
+		result += "]";
+		return result;
 	}
 	
 }
