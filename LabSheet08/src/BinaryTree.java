@@ -1,4 +1,6 @@
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class BinaryTree {
@@ -127,44 +129,51 @@ public class BinaryTree {
 		}
 		
 	}
-	
+
+
+
 	public void searchDeleteNode(int target) {
 		//traverse by BFS
 		Queue<Node> queue = new ArrayDeque<Node>();
 		queue.add(root);
-		
+
 		while(!queue.isEmpty()) {
-			
+
 			int levelSize = queue.size();
 			Node current_node = queue.poll();
-			
+
 			parent = current_node;
 			if (parent.data == target) {
 				deleteNode = parent;
 				break;
 			}
-			for(int i = 0; i<levelSize; i++) {
-				if(current_node.left.data == target) {
-					deleteNode = current_node.left;
-					queue.clear();
-					break;
+			for (int i = 0; i < levelSize; i++) {
+				if(current_node.left != null) {
+					if ( current_node.left.data == target) {
+						deleteNode = current_node.left;
+						queue.clear();
+						break;
+					}
+					queue.add(current_node.left);
 				}
-				queue.add(current_node.left);
-				if(current_node.right.data == target) {
-					deleteNode = current_node.right;
-					queue.clear();
-					break;
+				if(current_node.right != null) {
+					if (current_node.right.data == target) {
+						deleteNode = current_node.right;
+						queue.clear();
+						break;
+					}
+					queue.add(current_node.right);
 				}
-				queue.add(current_node.right);
 			}
 		}//end while
-		
-		
+		System.out.println("Parent = " + parent.data);
+		System.out.println("Delete node = " + deleteNode.data);
+
 	}
-	
+
 	public void delete(int traget) {
 		searchDeleteNode(traget);
-		
+
 		if(root == null) {
 			System.out.println("Empty Tree");
 		}else if(deleteNode == null){
@@ -172,7 +181,7 @@ public class BinaryTree {
 		}else {
 			//case1 : Delete leaf Node
 			if(deleteNode.left == null && deleteNode.right == null) {
-				if(parent.left != null && parent.left.data == deleteNode.data) {
+				if(parent.left != null && parent.left.data == traget) {
 					parent.left = null;
 				} else {
 					parent.right = null;
@@ -182,22 +191,22 @@ public class BinaryTree {
 			else if(deleteNode.left != null && deleteNode.right != null) {
 				Node successorParent = deleteNode;
 				Node successor = deleteNode.right;
-				
+
 				while(successor.left != null) {
 					successorParent = successor;
 					successor = successor.left;
 				}
-				
+
 				deleteNode.data = successor.data;
-				
+
 				if(successorParent.left == successor) {
 					successorParent.left = successor.right;
 				} else {
 					successorParent.right = successor.right;
 				}
-				
-				
-				
+
+
+
 			}
 			//case3 : Delete Node with 1 child
 			else {
@@ -217,11 +226,8 @@ public class BinaryTree {
 				}
 			}
 		}
-		
-		
+
+
 	}
-	
-	
-	
-	
+
 }
