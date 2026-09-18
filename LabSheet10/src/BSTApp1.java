@@ -11,7 +11,7 @@ public class BSTApp1 {
 		System.out.println("Minimum Node is " + tree.findMinimum());
 		System.out.println("Minimum Node is " + tree.findMaximum());
 		
-		System.out.println("Is 40 in BST => " + tree.findSpecificData(40));
+		System.out.println("Is 15 in BST => " + tree.findSpecificData(15));
 		
 		int delNode = 60;
 		tree.searchDeleteNode(delNode);
